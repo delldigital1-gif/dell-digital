@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation Assistant IA — Dell Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bleu: #1A3C8F;
+    --bleu-c: #2E6BE6;
+    --orange: #E67E22;
+    --blanc: #ffffff;
+    --sombre: #0a0f2e;
+    --gris: #F4F6FB;
+    --texte: #1a1a2e;
+    --muted: #6b7280;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--sombre);
+    color: var(--blanc);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,15,46,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(46,107,230,0.2);
+    padding: 16px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700; font-size: 20px; letter-spacing: 2px;
+    color: var(--blanc);
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-cta {
+    background: var(--orange); color: var(--blanc);
+    padding: 10px 24px; border-radius: 30px;
+    font-weight: 600; font-size: 14px;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0f2e 0%, #0d1b4b 50%, #0a0f2e 100%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 20px 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(46,107,230,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(230,126,34,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-inner { max-width: 800px; position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(46,107,230,0.15);
+    border: 1px solid rgba(46,107,230,0.4);
+    color: #7fa8e8; font-size: 13px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 8px 20px; border-radius: 30px; margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 6vw, 72px);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 12px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-title .accent { color: var(--orange); }
+
+  .hero-sub {
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: #cadcfc; margin-bottom: 40px; line-height: 1.6;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-badges {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    justify-content: center; margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #cadcfc; font-size: 14px; font-weight: 500;
+    padding: 8px 18px; border-radius: 30px;
+  }
+
+  .hero-btn {
+    display: inline-block;
+    background: var(--orange); color: var(--blanc);
+    padding: 18px 48px; border-radius: 50px;
+    font-size: 18px; font-weight: 700;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 32px rgba(230,126,34,0.35);
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .hero-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(230,126,34,0.5);
+  }
+
+  /* ── PROMESSES ── */
+  .promises {
+    background: var(--bleu);
+    padding: 80px 40px;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: #7fa8e8;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700; margin-bottom: 48px;
+  }
+
+  .promises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+
+  .promise-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px; padding: 28px;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .promise-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.1);
+  }
+
+  .promise-icon {
+    font-size: 36px; margin-bottom: 16px; display: block;
+  }
+
+  .promise-title {
+    font-size: 17px; font-weight: 700; margin-bottom: 8px;
+  }
+
+  .promise-desc { font-size: 14px; color: #cadcfc; line-height: 1.6; }
+
+  /* ── MODULES ── */
+  .modules { padding: 80px 40px; background: var(--sombre); }
+
+  .modules-list { display: flex; flex-direction: column; gap: 16px; margin-top: 48px; }
+
+  .module-item {
+    display: flex; align-items: center; gap: 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 24px 28px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .module-item:hover {
+    background: rgba(46,107,230,0.1);
+    border-color: rgba(46,107,230,0.3);
+  }
+
+  .module-num {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--bleu-c);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700; flex-shrink: 0;
+  }
+
+  .module-content { flex: 1; }
+  .module-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .module-desc { font-size: 14px; color: #7fa8e8; }
+
+  /* ── SESSIONS ── */
+  .sessions { padding: 80px 40px; background: #0d1b4b; }
+
+  .sessions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; margin-top: 48px;
+  }
+
+  .session-card {
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.2s;
+  }
+
+  .session-card:hover { transform: translateY(-6px); }
+
+  .session-header {
+    padding: 24px 28px 20px;
+  }
+
+  .s-premium .session-header { background: linear-gradient(135deg, #1A3C8F, #2E6BE6); }
+  .s-standard .session-header { background: linear-gradient(135deg, #E67E22, #f39c12); }
+  .s-etudiant .session-header { background: linear-gradient(135deg, #27AE60, #2ecc71); }
+
+  .session-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; opacity: 0.8; margin-bottom: 8px;
+  }
+
+  .session-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-weight: 700; margin-bottom: 4px;
+  }
+
+  .session-public { font-size: 14px; opacity: 0.85; }
+
+  .session-body {
+    background: rgba(255,255,255,0.04);
+    padding: 24px 28px;
+  }
+
+  .session-info { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+
+  .session-info-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: #cadcfc;
+  }
+
+  .session-info-item span:first-child { font-size: 18px; }
+
+  .session-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 700; color: var(--blanc);
+    margin-bottom: 4px;
+  }
+
+  .session-price-label { font-size: 13px; color: #7fa8e8; margin-bottom: 20px; }
+
+  .session-btn {
+    display: block; text-align: center;
+    padding: 14px; border-radius: 12px;
+    font-size: 15px; font-weight: 700;
+    text-decoration: none; transition: opacity 0.2s;
+    cursor: pointer; border: none; width: 100%;
+  }
+
+  .s-premium .session-btn { background: var(--bleu-c); color: var(--blanc); }
+  .s-standard .session-btn { background: var(--orange); color: var(--blanc); }
+  .s-etudiant .session-btn { background: #27AE60; color: var(--blanc); }
+  .session-btn:hover { opacity: 0.85; }
+
+  /* ── FORMULAIRE ── */
+  .form-section {
+    padding: 80px 40px;
+    background: var(--sombre);
+    position: relative; overflow: hidden;
+  }
+
+  .form-section::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 400px;
+    background: radial-gradient(circle, rgba(46,107,230,0.12) 0%, transparent 70%);
+  }
+
+  .form-wrapper {
+    max-width: 640px; margin: 48px auto 0;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px; padding: 48px;
+    position: relative; z-index: 1;
+  }
+
+  .form-group { margin-bottom: 20px; }
+
+  .form-group label {
+    display: block; font-size: 14px; font-weight: 600;
+    color: #cadcfc; margin-bottom: 8px;
+  }
+
+  .form-group label .req { color: var(--orange); }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px; padding: 14px 16px;
+    color: var(--blanc); font-family: 'Outfit', sans-serif;
+    font-size: 15px; outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--bleu-c);
+    background: rgba(46,107,230,0.1);
+  }
+
+  .form-group select option { background: #0d1b4b; color: var(--blanc); }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .form-submit {
+    width: 100%; padding: 18px;
+    background: var(--orange); color: var(--blanc);
+    border: none; border-radius: 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 17px; font-weight: 700;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 24px rgba(230,126,34,0.3);
+    margin-top: 8px;
+  }
+
+  .form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(230,126,34,0.45);
+  }
+
+  .form-note {
+    text-align: center; font-size: 13px;
+    color: #7fa8e8; margin-top: 16px;
+  }
+
+  /* Success message */
+  .success-msg {
+    display: none; text-align: center; padding: 32px;
+  }
+
+  .success-msg .checkmark { font-size: 64px; margin-bottom: 16px; }
+  .success-msg h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .success-msg p { color: #cadcfc; font-size: 15px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050914;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700; font-size: 22px;
+    letter-spacing: 3px; color: var(--blanc);
+    margin-bottom: 8px;
+  }
+
+  .footer-logo span { color: var(--orange); }
+  .footer-sub { font-size: 14px; color: #7fa8e8; margin-bottom: 20px; }
+
+  .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+  .footer-links a { color: #cadcfc; text-decoration: none; font-size: 14px; }
+  .footer-links a:hover { color: var(--orange); }
+
+  .footer-copy { margin-top: 24px; font-size: 13px; color: #4a5568; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    nav { padding: 14px 20px; }
+    .hero { padding: 100px 20px 60px; }
+    .promises, .modules, .sessions, .form-section { padding: 60px 20px; }
+    .form-wrapper { padding: 28px 20px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DELL<span>.</span>DIGITAL</div>
+  <a href="#inscription" class="nav-cta">S'inscrire →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Dell Digital · Formation en ligne · Juin 2026</div>
+    <h1 class="hero-title">
+      Mettre en place son<br>
+      <span class="accent">Assistant IA</span><br>
+      en moins d'une heure
+    </h1>
+    <p class="hero-sub">
+      Configurez votre IA personnelle, déléguez vos tâches répétitives<br>
+      et gagnez en productivité — dès aujourd'hui.
+    </p>
+    <div class="hero-badges">
+      <span class="badge">🤖 Claude (Anthropic)</span>
+      <span class="badge">📍 En ligne · Google Meet</span>
+      <span class="badge">👥 20 places max par session</span>
+      <span class="badge">⚡ Mise en pratique immédiate</span>
+    </div>
+    <a href="#inscription" class="hero-btn">Réserver ma place →</a>
+  </div>
+</section>
+
+<!-- PROMESSES -->
+<section class="promises">
+  <div class="container">
+    <div class="section-label reveal">Ce que vous gagnez</div>
+    <h2 class="section-title reveal">Votre IA travaille pour vous,<br>même quand vous dormez.</h2>
+    <div class="promises-grid">
+      <div class="promise-card reveal">
+        <span class="promise-icon">🤖</span>
+        <div class="promise-title">Employé virtuel 24h/24</div>
+        <div class="promise-desc">Votre assistant disponible à toute heure, sans congé ni fatigue.</div>
+      </div>
+      <div class="promise-card reveal">
+        <span class="promise-icon">✍️</span>
+        <div class="promise-title">Contenu en 30 secondes</div>
+        <div class="promise-desc">Posts, emails et propositions commerciales rédigés instantanément.</div>
+      </div>
+      <div class="promise-card reveal">
+        <span class="promise-icon">🔍</span>
+        <div class="promise-title">Recherche intelligente</div>
+        <div class="promise-desc">Trouvez en 10 sec ce qui vous prenait 2 heures.</div>
+      </div>
+      <div class="promise-card reveal">
+        <span class="promise-icon">⚡</span>
+        <div class="promise-title">Productivité × 3</div>
+        <div class="promise-desc">Faites le travail de 3 personnes — seul.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section class="modules">
+  <div class="container">
+    <div class="section-label reveal">Programme</div>
+    <h2 class="section-title reveal">4 modules, 4 heures,<br>un assistant opérationnel.</h2>
+    <div class="modules-list">
+      <div class="module-item reveal">
+        <div class="module-num">1</div>
+        <div class="module-content">
+          <div class="module-title">Pourquoi configurer son IA ?</div>
+          <div class="module-desc">De l'outil générique à l'assistant sur-mesure · Les 4 domaines de transformation</div>
+        </div>
+      </div>
+      <div class="module-item reveal">
+        <div class="module-num">2</div>
+        <div class="module-content">
+          <div class="module-title">Définir l'identité de votre assistant</div>
+          <div class="module-desc">Votre profil · Vos objectifs · Votre style de communication</div>
+        </div>
+      </div>
+      <div class="module-item reveal">
+        <div class="module-num">3</div>
+        <div class="module-content">
+          <div class="module-title">Paramétrer les accès et la confidentialité</div>
+          <div class="module-desc">Ce qu'on partage · Ce qu'on protège · Travailler en sécurité</div>
+        </div>
+      </div>
+      <div class="module-item reveal">
+        <div class="module-num">4</div>
+        <div class="module-content">
+          <div class="module-title">Activation et prise en main</div>
+          <div class="module-desc">Configuration guidée en direct · Tests · Vous repartez opérationnel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SESSIONS -->
+<section class="sessions">
+  <div class="container">
+    <div class="section-label reveal">Nos sessions</div>
+    <h2 class="section-title reveal">Choisissez votre session.</h2>
+    <div class="sessions-grid">
+
+      <div class="session-card s-premium reveal">
+        <div class="session-header">
+          <div class="session-tag">Session Premium</div>
+          <div class="session-name">Dirigeants &amp;<br>Fonctionnaires</div>
+          <div class="session-public">Responsables · Cadres · Agents de l'État</div>
+        </div>
+        <div class="session-body">
+          <div class="session-info">
+            <div class="session-info-item"><span>📅</span><span>23 &amp; 24 juin 2026</span></div>
+            <div class="session-info-item"><span>⏰</span><span>18h00 – 20h00</span></div>
+            <div class="session-info-item"><span>💻</span><span>En ligne · Google Meet</span></div>
+            <div class="session-info-item"><span>👥</span><span>20 places maximum</span></div>
+          </div>
+          <div class="session-price">35 000 FCFA</div>
+          <div class="session-price-label">par participant</div>
+          <button class="session-btn" onclick="selectSession('Premium — Dirigeants & Fonctionnaires (23-24 juin) — 35 000 FCFA')">Choisir cette session</button>
+        </div>
+      </div>
+
+      <div class="session-card s-standard reveal">
+        <div class="session-header">
+          <div class="session-tag">Session Standard</div>
+          <div class="session-name">Entrepreneurs &amp;<br>Salariés</div>
+          <div class="session-public">PME · Freelances · Commerciaux</div>
+        </div>
+        <div class="session-body">
+          <div class="session-info">
+            <div class="session-info-item"><span>📅</span><span>25 &amp; 26 juin 2026</span></div>
+            <div class="session-info-item"><span>⏰</span><span>18h00 – 20h00</span></div>
+            <div class="session-info-item"><span>💻</span><span>En ligne · Google Meet</span></div>
+            <div class="session-info-item"><span>👥</span><span>20 places maximum</span></div>
+          </div>
+          <div class="session-price">25 000 FCFA</div>
+          <div class="session-price-label">par participant</div>
+          <button class="session-btn" onclick="selectSession('Standard — Entrepreneurs & Salariés (25-26 juin) — 25 000 FCFA')">Choisir cette session</button>
+        </div>
+      </div>
+
+      <div class="session-card s-etudiant reveal">
+        <div class="session-header">
+          <div class="session-tag">Session Étudiants</div>
+          <div class="session-name">Étudiants &amp;<br>Élèves</div>
+          <div class="session-public">Universités · Lycées · Grandes écoles</div>
+        </div>
+        <div class="session-body">
+          <div class="session-info">
+            <div class="session-info-item"><span>📅</span><span>28 &amp; 29 juin 2026</span></div>
+            <div class="session-info-item"><span>⏰</span><span>18h00 – 20h00</span></div>
+            <div class="session-info-item"><span>💻</span><span>En ligne · Google Meet</span></div>
+            <div class="session-info-item"><span>👥</span><span>20 places maximum</span></div>
+          </div>
+          <div class="session-price">15 000 FCFA</div>
+          <div class="session-price-label">par participant</div>
+          <button class="session-btn" onclick="selectSession('Étudiants & Élèves (28-29 juin) — 15 000 FCFA')">Choisir cette session</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FORMULAIRE -->
+<section class="form-section" id="inscription">
+  <div class="container" style="text-align:center;">
+    <div class="section-label reveal">Inscription</div>
+    <h2 class="section-title reveal">Réservez votre place maintenant.</h2>
+    <p style="color:#cadcfc; margin-top:-32px; margin-bottom:0; font-size:16px;" class="reveal">
+      Remplissez ce formulaire — nous vous confirmons votre inscription sous 24h.
+    </p>
+  </div>
+
+  <div class="form-wrapper reveal">
+    <div id="form-content">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nom <span class="req">*</span></label>
+          <input type="text" id="nom" placeholder="Votre nom" required>
+        </div>
+        <div class="form-group">
+          <label>Prénom <span class="req">*</span></label>
+          <input type="text" id="prenom" placeholder="Votre prénom" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Téléphone WhatsApp <span class="req">*</span></label>
+        <input type="tel" id="tel" placeholder="+228 XX XX XX XX" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="votre@email.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Ville / Pays <span class="req">*</span></label>
+        <input type="text" id="ville" placeholder="Lomé, Togo" required>
+      </div>
+
+      <div class="form-group">
+        <label>Profession / Activité <span class="req">*</span></label>
+        <input type="text" id="profession" placeholder="Ex : Entrepreneur, Fonctionnaire, Étudiant..." required>
+      </div>
+
+      <div class="form-group">
+        <label>Session choisie <span class="req">*</span></label>
+        <select id="session" required>
+          <option value="">-- Sélectionnez une session --</option>
+          <option value="Premium — Dirigeants & Fonctionnaires (23-24 juin) — 35 000 FCFA">🔵 Session Premium — Dirigeants & Fonctionnaires (35 000 FCFA)</option>
+          <option value="Standard — Entrepreneurs & Salariés (25-26 juin) — 25 000 FCFA">🟠 Session Standard — Entrepreneurs & Salariés (25 000 FCFA)</option>
+          <option value="Étudiants & Élèves (28-29 juin) — 15 000 FCFA">🟢 Session Étudiants & Élèves (15 000 FCFA)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Avez-vous déjà utilisé une IA ? <span class="req">*</span></label>
+        <select id="experience" required>
+          <option value="">-- Sélectionnez --</option>
+          <option value="Jamais">Jamais — je découvre complètement</option>
+          <option value="Quelques fois">Quelques fois — j'ai testé sans vraiment maîtriser</option>
+          <option value="Régulièrement">Régulièrement — je l'utilise déjà dans mon travail</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Si l'IA pouvait faire une seule chose pour vous, ce serait quoi ?</label>
+        <textarea id="besoin" placeholder="Ex : Rédiger mes emails, répondre à mes clients, créer du contenu..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Comment avez-vous connu cette formation ?</label>
+        <select id="source">
+          <option value="">-- Sélectionnez --</option>
+          <option value="Facebook">Facebook</option>
+          <option value="LinkedIn">LinkedIn</option>
+          <option value="WhatsApp">WhatsApp</option>
+          <option value="Bouche à oreille">Bouche à oreille</option>
+          <option value="Autre">Autre</option>
+        </select>
+      </div>
+
+      <button class="form-submit" onclick="submitForm()">
+        📩 Confirmer mon inscription
+      </button>
+      <p class="form-note">
+        🔒 Vos données sont confidentielles et ne seront jamais partagées.
+      </p>
+    </div>
+
+    <div class="success-msg" id="success-msg">
+      <div class="checkmark">✅</div>
+      <h3>Inscription reçue !</h3>
+      <p>Merci <strong id="success-name"></strong> ! Nous vous confirmons votre place sous 24h par WhatsApp ou email.</p>
+      <br>
+      <p style="color:#7fa8e8; font-size:14px;">Dell Digital · Togo, Afrique Francophone</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">DELL<span>.</span>DIGITAL</div>
+  <div class="footer-sub">Consultant en Automatisation et Intégration IA · Togo, Afrique Francophone</div>
+  <div class="footer-links">
+    <a href="#inscription">S'inscrire</a>
+    <a href="#modules">Programme</a>
+    <a href="#sessions">Sessions</a>
+  </div>
+  <div class="footer-copy">© 2026 Dell Digital · Lynx K. ADANGBALO · Tous droits réservés</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Sélection session depuis les cartes
+  function selectSession(val) {
+    document.getElementById('session').value = val;
+    document.getElementById('inscription').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Soumission formulaire
+  function submitForm() {
+    const nom = document.getElementById('nom').value.trim();
+    const prenom = document.getElementById('prenom').value.trim();
+    const tel = document.getElementById('tel').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const ville = document.getElementById('ville').value.trim();
+    const profession = document.getElementById('profession').value.trim();
+    const session = document.getElementById('session').value;
+    const experience = document.getElementById('experience').value;
+
+    if (!nom || !prenom || !tel || !email || !ville || !profession || !session || !experience) {
+      alert('⚠️ Veuillez remplir tous les champs obligatoires (*).');
+      return;
+    }
+
+    // Afficher le message de succès
+    document.getElementById('form-content').style.display = 'none';
+    const msg = document.getElementById('success-msg');
+    msg.style.display = 'block';
+    document.getElementById('success-name').textContent = prenom + ' ' + nom;
+  }
+</script>
+</body>
+</html>
